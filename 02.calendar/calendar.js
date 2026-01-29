@@ -32,11 +32,7 @@ for (
   date <= lastDate;
   date.setDate(date.getDate() + 1)
 ) {
-  let day = date.getDate().toString();
-  if (day.length === 1) {
-    day = " " + day;
-  }
-  process.stdout.write(day);
+  process.stdout.write(date.getDate().toString().padStart(2));
   date.getDay() === 6 ? console.log() : process.stdout.write(" ");
   if (date.getDate() === lastDate.getDate() && date.getDay() !== 6) {
     console.log();
