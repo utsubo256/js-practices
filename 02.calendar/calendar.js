@@ -33,10 +33,7 @@ for (
   date.setDate(date.getDate() + 1)
 ) {
   process.stdout.write(date.getDate().toString().padStart(2));
-  date.getDay() === 6 ? console.log() : process.stdout.write(" ");
-  if (date.getDate() === lastDate.getDate() && date.getDay() !== 6) {
-    console.log();
-  }
+  process.stdout.write(date.getDay() === 6 ? "\n" : " ");
 }
 
-console.log();
+process.stdout.write("\n".repeat(lastDate.getDay() === 6 ? 1 : 2));
