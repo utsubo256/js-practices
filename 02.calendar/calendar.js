@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import minimist from "minimist";
 
+const SATURDAY = 6;
+
 function center(targetString, targetLength) {
   const spaceNumber = (targetLength - targetString.length) / 2;
   return (
@@ -33,7 +35,7 @@ for (
   date.setDate(date.getDate() + 1)
 ) {
   process.stdout.write(date.getDate().toString().padStart(2));
-  process.stdout.write(date.getDay() === 6 ? "\n" : " ");
+  process.stdout.write(date.getDay() === SATURDAY ? "\n" : " ");
 }
 
-process.stdout.write("\n".repeat(lastDate.getDay() === 6 ? 1 : 2));
+process.stdout.write("\n".repeat(lastDate.getDay() === SATURDAY ? 1 : 2));
