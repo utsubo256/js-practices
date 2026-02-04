@@ -5,14 +5,16 @@ import {
 } from "./promisified_functions.js";
 
 async function main() {
-  await runPromise("CREATE TABLE books (title TEXT)");
+  await runPromise(
+    "CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)",
+  );
   try {
-    await runPromise("INSERT___INTO books VALUES (?)", "Rubyのしくみ");
+    await runPromise("INSERT___INTO books (title) VALUES (?)", "Rubyのしくみ");
   } catch (err) {
     console.error(err);
   }
   try {
-    await getPromise("SELECT___rowid, title FROM books");
+    await getPromise("SELECT___id, title FROM books");
   } catch (err) {
     console.error(err);
   }
