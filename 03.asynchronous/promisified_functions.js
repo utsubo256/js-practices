@@ -1,8 +1,4 @@
-import sqlite3 from "sqlite3";
-
-const db = new (sqlite3.verbose().Database)(":memory:");
-
-function runPromise(sql, param = undefined) {
+function runPromise(db, sql, param = undefined) {
   return new Promise((resolve, reject) => {
     db.run(sql, param, function (err) {
       if (err) {
@@ -14,7 +10,7 @@ function runPromise(sql, param = undefined) {
   });
 }
 
-function getPromise(sql, param = undefined) {
+function getPromise(db, sql, param = undefined) {
   return new Promise((resolve, reject) => {
     db.get(sql, param, (err, data) => {
       if (err) {
@@ -26,7 +22,7 @@ function getPromise(sql, param = undefined) {
   });
 }
 
-function closePromise() {
+function closePromise(db) {
   return new Promise((resolve, reject) => {
     db.close((err) => {
       if (err) {

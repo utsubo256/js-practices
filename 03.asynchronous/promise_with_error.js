@@ -1,15 +1,18 @@
+import sqlite3 from "sqlite3";
 import {
   runPromise,
   getPromise,
   closePromise,
 } from "./promisified_functions.js";
 
-runPromise("CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)")
+const db = new (sqlite3.verbose().Database)(":memory:");
+
+runPromise(db, "CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)")
   .then(() =>
-    runPromise("INSERT___INTO books (title) VALUES (?)", "Rubyのしくみ"),
+    runPromise(db, "INSERT___INTO books (title) VALUES (?)", "Rubyのしくみ"),
   )
   .catch((err) => console.error(err.message))
-  .then(() => getPromise("SELECT___id, title FROM books"))
+  .then(() => getPromise(db, "SELECT___id, title FROM books"))
   .catch((err) => console.error(err.message))
-  .then(() => runPromise("DROP TABLE books"))
-  .then(() => closePromise());
+  .then(() => runPromise(db, "DROP TABLE books"))
+  .then(() => closePromise(db));
