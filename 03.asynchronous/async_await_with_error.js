@@ -11,12 +11,12 @@ async function main() {
   try {
     await runPromise("INSERT___INTO books (title) VALUES (?)", "Rubyのしくみ");
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   }
   try {
     await getPromise("SELECT___id, title FROM books");
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   }
   await runPromise("DROP TABLE books");
   await closePromise();
