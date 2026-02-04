@@ -1,7 +1,6 @@
 import sqlite3 from "sqlite3";
 
-const sqlite3Verbose = sqlite3.verbose();
-const db = new sqlite3Verbose.Database(":memory:");
+const db = new (sqlite3.verbose().Database)(":memory:");
 
 function runPromise(sql, param = undefined) {
   return new Promise((resolve, reject) => {

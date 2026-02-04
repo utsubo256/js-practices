@@ -1,7 +1,6 @@
 import sqlite3 from "sqlite3";
 
-const sqlite3Verbose = sqlite3.verbose();
-const db = new sqlite3Verbose.Database(":memory:");
+const db = new (sqlite3.verbose().Database)(":memory:");
 
 db.run("CREATE TABLE books (title TEXT)", () => {
   db.run("INSERT___INTO books VALUES (?)", "Rubyのしくみ", function (err) {
