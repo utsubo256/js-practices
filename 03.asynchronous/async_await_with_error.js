@@ -18,12 +18,20 @@ try {
     "Rubyのしくみ",
   );
 } catch (err) {
-  console.error(err.message);
+  if (err.code === "SQLITE_ERROR") {
+    console.error(err.message);
+  } else {
+    throw err;
+  }
 }
 try {
   await getPromise(db, "SELECT___id, title FROM books");
 } catch (err) {
-  console.error(err.message);
+  if (err.code === "SQLITE_ERROR") {
+    console.error(err.message);
+  } else {
+    throw err;
+  }
 }
 await runPromise(db, "DROP TABLE books");
 await closePromise(db);
