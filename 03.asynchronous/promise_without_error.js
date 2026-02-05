@@ -11,12 +11,12 @@ runPromise(db, "CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)")
   .then(() =>
     runPromise(db, "INSERT INTO books (title) VALUES (?)", "Rubyのしくみ"),
   )
-  .then((data) => {
-    console.log(`id: ${data.lastID}`);
+  .then((result) => {
+    console.log(`id: ${result.lastID}`);
     return getPromise(db, "SELECT id, title FROM books");
   })
-  .then((data) => {
-    console.log(`id: ${data.id}、title: ${data.title}`);
+  .then((row) => {
+    console.log(`id: ${row.id}、title: ${row.title}`);
     return runPromise(db, "DROP TABLE books");
   })
   .then(() => closePromise(db));

@@ -12,11 +12,11 @@ function runPromise(db, sql, ...params) {
 
 function getPromise(db, sql, ...params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, ...params, (err, data) => {
+    db.get(sql, ...params, (err, row) => {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(row);
       }
     });
   });
