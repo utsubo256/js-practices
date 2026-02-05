@@ -1,4 +1,4 @@
-function runPromise(db, sql, ...params) {
+export function runPromise(db, sql, ...params) {
   return new Promise((resolve, reject) => {
     db.run(sql, ...params, function (err) {
       if (err) {
@@ -10,7 +10,7 @@ function runPromise(db, sql, ...params) {
   });
 }
 
-function getPromise(db, sql, ...params) {
+export function getPromise(db, sql, ...params) {
   return new Promise((resolve, reject) => {
     db.get(sql, ...params, (err, row) => {
       if (err) {
@@ -22,7 +22,7 @@ function getPromise(db, sql, ...params) {
   });
 }
 
-function closePromise(db) {
+export function closePromise(db) {
   return new Promise((resolve, reject) => {
     db.close((err) => {
       if (err) {
@@ -33,5 +33,3 @@ function closePromise(db) {
     });
   });
 }
-
-export { runPromise, getPromise, closePromise };
