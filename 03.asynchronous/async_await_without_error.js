@@ -11,12 +11,12 @@ await runPromise(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)",
 );
-const insertedBook = await runPromise(
+const result = await runPromise(
   db,
   "INSERT INTO books (title) VALUES (?)",
   "Rubyのしくみ",
 );
-console.log(`id: ${insertedBook.lastID}`);
+console.log(`id: ${result.lastID}`);
 const book = await getPromise(db, "SELECT id, title FROM books");
 console.log(`id: ${book.id}、title: ${book.title}`);
 await runPromise(db, "DROP TABLE books");
