@@ -1,6 +1,6 @@
-function runPromise(db, sql, param = undefined) {
+function runPromise(db, sql, ...params) {
   return new Promise((resolve, reject) => {
-    db.run(sql, param, function (err) {
+    db.run(sql, ...params, function (err) {
       if (err) {
         reject(err);
       } else {
@@ -10,9 +10,9 @@ function runPromise(db, sql, param = undefined) {
   });
 }
 
-function getPromise(db, sql, param = undefined) {
+function getPromise(db, sql, ...params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, param, (err, data) => {
+    db.get(sql, ...params, (err, data) => {
       if (err) {
         reject(err);
       } else {
