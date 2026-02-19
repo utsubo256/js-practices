@@ -19,6 +19,4 @@ runPromise(db, "CREATE TABLE books (id INTEGER PRIMARY KEY ASC, title TEXT)")
     console.error(err.message);
   })
   .then(() => runPromise(db, "DROP TABLE books"))
-  .then(() => {
-    closePromise(db);
-  });
+  .then(() => closePromise(db));
