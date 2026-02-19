@@ -18,7 +18,7 @@ try {
     "Rubyのしくみ",
   );
 } catch (err) {
-  if (err.code === "SQLITE_ERROR") {
+  if (err instanceof Error && err.code === "SQLITE_ERROR") {
     console.error(err.message);
   } else {
     throw err;
@@ -27,7 +27,7 @@ try {
 try {
   await getPromise(db, "SELECT___id, title FROM books");
 } catch (err) {
-  if (err.code === "SQLITE_ERROR") {
+  if (err instanceof Error && err.code === "SQLITE_ERROR") {
     console.error(err.message);
   } else {
     throw err;
