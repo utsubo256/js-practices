@@ -21,6 +21,8 @@ export class MemoApp {
         await this.#show();
       } else if (this.#arg === "-d") {
         await this.#destroy();
+      } else {
+        console.error("Invalid option");
       }
     } finally {
       await this.#repository.close();
