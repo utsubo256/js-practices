@@ -1,4 +1,9 @@
-import { runPromise, allPromise, closePromise } from "./sqlite_promises.js";
+import {
+  runPromise,
+  allPromise,
+  getPromise,
+  closePromise,
+} from "./sqlite_promises.js";
 
 export class MemoRepository {
   #db;
@@ -20,6 +25,10 @@ export class MemoRepository {
 
   async all() {
     return allPromise(this.#db, "SELECT id, title FROM memos ORDER BY id DESC");
+  }
+
+  async find(id) {
+    return getPromise(this.#db, "SELECT title FROM memos WHERE id = ?", id);
   }
 
   async close() {
