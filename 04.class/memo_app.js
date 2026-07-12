@@ -19,6 +19,8 @@ export class MemoApp {
         await this.#index();
       } else if (this.#arg === "-r") {
         await this.#show();
+      } else if (this.#arg === "-d") {
+        await this.#destroy();
       }
     } finally {
       await this.#repository.close();
@@ -47,10 +49,28 @@ export class MemoApp {
       console.log("No memos found");
       return;
     }
+    const message = "Choose a memo you want to see:";
+    const memoId = await this.#selectMemoId(memos, message);
+    const memo = await this.#repository.find(memoId);
+    console.log(memo.title);
+  }
+
+  async #destroy() {
+    const memos = await this.#repository.all();
+    if (memos.length === 0) {
+      console.log("No memos found");
+      return;
+    }
+    const message = "Choose a memo you want to delete:";
+    const memoId = await this.#selectMemoId(memos, message);
+    await this.#repository.delete(memoId);
+  }
+
+  async #selectMemoId(memos, message) {
     const response = await enquirer.prompt({
       type: "select",
       name: "memoId",
-      message: "メモを選択してください",
+      message,
       choices: memos.map((memo) => ({
         name: String(memo.id),
         message: memo.title.split("\n")[0],
@@ -60,7 +80,6 @@ export class MemoApp {
         return this.focused.body;
       },
     });
-    const memo = await this.#repository.find(response.memoId);
-    console.log(memo.title);
+    return response.memoId;
   }
 }

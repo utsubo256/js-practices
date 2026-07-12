@@ -31,6 +31,10 @@ export class MemoRepository {
     return getPromise(this.#db, "SELECT title FROM memos WHERE id = ?", id);
   }
 
+  async delete(id) {
+    await runPromise(this.#db, "DELETE FROM memos WHERE id = ?", id);
+  }
+
   async close() {
     await closePromise(this.#db);
   }
