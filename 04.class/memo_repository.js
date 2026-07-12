@@ -1,4 +1,4 @@
-import { runPromise, closePromise } from "./sqlite_promises.js";
+import { runPromise, allPromise, closePromise } from "./sqlite_promises.js";
 
 export class MemoRepository {
   #db;
@@ -16,6 +16,10 @@ export class MemoRepository {
 
   async create(input) {
     await runPromise(this.#db, "INSERT INTO memos (title) VALUES (?)", input);
+  }
+
+  async all() {
+    return allPromise(this.#db, "SELECT id, title FROM memos ORDER BY id DESC");
   }
 
   async close() {
