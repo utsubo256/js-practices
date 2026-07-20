@@ -15,20 +15,20 @@ export class MemoRepository {
   async setup() {
     await runPromise(
       this.#db,
-      "CREATE TABLE IF NOT EXISTS memos (id INTEGER PRIMARY KEY ASC, title TEXT)",
+      "CREATE TABLE IF NOT EXISTS memos (id INTEGER PRIMARY KEY ASC, body TEXT)",
     );
   }
 
   async create(input) {
-    await runPromise(this.#db, "INSERT INTO memos (title) VALUES (?)", input);
+    await runPromise(this.#db, "INSERT INTO memos (body) VALUES (?)", input);
   }
 
   async all() {
-    return allPromise(this.#db, "SELECT id, title FROM memos ORDER BY id DESC");
+    return allPromise(this.#db, "SELECT id, body FROM memos ORDER BY id DESC");
   }
 
   async find(id) {
-    return getPromise(this.#db, "SELECT title FROM memos WHERE id = ?", id);
+    return getPromise(this.#db, "SELECT body FROM memos WHERE id = ?", id);
   }
 
   async delete(id) {

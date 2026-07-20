@@ -41,7 +41,7 @@ export class MemoApp {
       return;
     }
     memos.forEach((row) => {
-      console.log(row.title.split("\n")[0]);
+      console.log(row.body.split("\n")[0]);
     });
   }
 
@@ -54,7 +54,7 @@ export class MemoApp {
     const message = "Choose a memo you want to see:";
     const memoId = await this.#selectMemoId(memos, message);
     const memo = await this.#repository.find(memoId);
-    console.log(memo.title);
+    console.log(memo.body);
   }
 
   async #destroy() {
@@ -75,8 +75,8 @@ export class MemoApp {
       message,
       choices: memos.map((memo) => ({
         name: String(memo.id),
-        message: memo.title.split("\n")[0],
-        body: memo.title,
+        message: memo.body.split("\n")[0],
+        body: memo.body,
       })),
       footer() {
         return this.focused.body;
