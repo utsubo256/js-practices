@@ -1,12 +1,15 @@
 import fs from "node:fs";
 import enquirer from "enquirer";
+import sqlite3 from "sqlite3";
+import { MemoRepository } from "./memo_repository.js";
 
 export class MemoApp {
   #repository;
   #arg;
 
-  constructor(repository, arg) {
-    this.#repository = repository;
+  constructor(arg) {
+    const db = new (sqlite3.verbose().Database)("memos.sqlite3");
+    this.#repository = new MemoRepository(db);
     this.#arg = arg;
   }
 
