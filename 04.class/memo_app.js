@@ -43,8 +43,8 @@ export class MemoApp {
       console.log("No memos found");
       return;
     }
-    memos.forEach((row) => {
-      console.log(row.body.split("\n")[0]);
+    memos.forEach((memo) => {
+      console.log(memo.body.split("\n")[0]);
     });
   }
 
