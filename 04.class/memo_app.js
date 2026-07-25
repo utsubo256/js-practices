@@ -43,9 +43,7 @@ export class MemoApp {
       console.log("No memos found");
       return;
     }
-    memos.forEach((memo) => {
-      console.log(memo.body.split("\n")[0]);
-    });
+    memos.forEach((memo) => console.log(this.#extractTitle(memo)));
   }
 
   async #show() {
@@ -86,5 +84,9 @@ export class MemoApp {
       },
     });
     return response.memoId;
+  }
+
+  #extractTitle(memo) {
+    return memo.body.split("\n")[0];
   }
 }
