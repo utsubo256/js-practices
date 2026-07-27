@@ -19,8 +19,8 @@ export class MemoRepository {
     );
   }
 
-  async create(input) {
-    await runPromise(this.#db, "INSERT INTO memos (body) VALUES (?)", input);
+  async create(body) {
+    await runPromise(this.#db, "INSERT INTO memos (body) VALUES (?)", body);
   }
 
   async all() {
