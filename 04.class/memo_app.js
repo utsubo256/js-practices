@@ -38,35 +38,43 @@ export class MemoApp {
   }
 
   async #index() {
-    const memos = await this.#repository.all();
-    if (memos.length === 0) {
-      console.log("No memos found");
-      return;
-    }
-    memos.forEach((memo) => console.log(this.#extractTitle(memo)));
+    await this.#handleMemos((memos) => {
+      memos.forEach((memo) => console.log(this.#extractTitle(memo)));
+    });
   }
 
   async #show() {
-    const memos = await this.#repository.all();
-    if (memos.length === 0) {
-      console.log("No memos found");
-      return;
-    }
-    const message = "Choose a memo you want to see:";
-    const memoId = await this.#selectMemoId(memos, message);
-    const memo = await this.#repository.find(memoId);
-    console.log(memo.body);
+    await this.#handleMemo("Choose a memo you want to see:", async (memoId) => {
+      const memo = await this.#repository.find(memoId);
+      console.log(memo.body);
+    });
   }
 
   async #destroy() {
+    await this.#handleMemo(
+      "Choose a memo you want to delete:",
+      async (memoId) => {
+        await this.#repository.delete(memoId);
+      },
+    );
+  }
+
+  async #handleMemos(callback) {
     const memos = await this.#repository.all();
+
     if (memos.length === 0) {
       console.log("No memos found");
       return;
     }
-    const message = "Choose a memo you want to delete:";
-    const memoId = await this.#selectMemoId(memos, message);
-    await this.#repository.delete(memoId);
+
+    await callback(memos);
+  }
+
+  async #handleMemo(message, callback) {
+    await this.#handleMemos(async (memos) => {
+      const memoId = await this.#selectMemoId(memos, message);
+      await callback(memoId);
+    });
   }
 
   async #selectMemoId(memos, message) {
