@@ -1,0 +1,26 @@
+classDiagram
+    class MemoApp {
+      -MemoRepository repository
+      -String arg
+      +run() Promise~void~
+      -create() Promise~void~
+      -index() Promise~void~
+      -show() Promise~void~
+      -destroy() Promise~void~
+      -handleMemos(callback) Promise~void~
+      -handleMemo(message, callback) Promise~void~
+      -selectMemoId(memos, message) Promise~String~
+      -extractTitle(memo) String
+    }
+
+    class MemoRepository {
+      -Database db
+      +setup() Promise~void~
+      +create(body) Promise~void~
+      +all() Promise~Array~
+      +find(id) Promise~Object~
+      +delete(id) Promise~void~
+      +close() Promise~void~
+    }
+
+    MemoApp --> MemoRepository
